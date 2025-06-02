@@ -3,4 +3,4 @@ Spending a night to understand the intuition behind docker and containers in gen
 ## Resources
 
 - [https://github.com/fireflyc/mini-docker](https://github.com/fireflyc/mini-docker)
--
+- [https://github.com/shuveb/containers-the-hard-way](https://github.com/shuveb/containers-the-hard-way)
