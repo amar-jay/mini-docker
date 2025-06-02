@@ -12,11 +12,13 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/google/go-containerregistry/pkg/crane"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/uuid"
 	"github.com/mgutz/ansi"
 	"github.com/olekukonko/tablewriter"
+	"github.com/olekukonko/tablewriter/renderer"
 	"github.com/urfave/cli/v3"
 	"github.com/vishvananda/netlink"
 	"golang.org/x/sys/unix"
@@ -645,7 +647,18 @@ func printAvailableImages() {
 		}
 	}
 
-	table := tablewriter.NewWriter(os.Stdout)
+	// Configure colors: green headers, cyan/magenta rows, yellow footer
+	colorCfg := renderer.ColorizedConfig{
+		Header: renderer.Tint{
+			FG: renderer.Colors{color.FgGreen, color.Bold}, // Green bold headers
+		},
+		Column: renderer.Tint{
+			FG: renderer.Colors{color.FgWhite},
+		},
+	}
+	table := tablewriter.NewTable(os.Stdout,
+		tablewriter.WithRenderer(renderer.NewColorized(colorCfg)),
+	)
 	table.Header(data[0])
 	table.Bulk(data[1:])
 	table.Render()
